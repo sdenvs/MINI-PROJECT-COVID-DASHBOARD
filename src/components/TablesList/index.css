@@ -1,0 +1,84 @@
+table {
+  width: 100%;
+}
+table p {
+  color: #f8fafc;
+  padding: 0px;
+  margin: 0px;
+}
+
+table button {
+  background-color: transparent;
+  border: 0;
+}
+
+.tableIcon {
+  color: #28a745;
+  margin-left: 10px;
+}
+
+th,
+.stateNameColumn {
+  color: #f8fafc;
+  padding: 15px;
+}
+.tableBorder {
+  border: 1px #475569 solid;
+  border-radius: 10px;
+  width: fit-content;
+  background-color: #1e1e30;
+}
+.stateName {
+  width: 30%;
+  text-align: start;
+}
+.stateNameColumn {
+  text-align: start;
+}
+.count {
+  width: 14%;
+  text-align: center;
+}
+.bottomBorder {
+  border-bottom: 1px #475569 solid;
+}
+
+.Confirmed {
+  color: #ff073a;
+  text-align: center;
+}
+
+.Active {
+  color: #007bff;
+  text-align: center;
+}
+
+.Recovered {
+  color: #28a745;
+  text-align: center;
+}
+
+.Deceased {
+  color: #6c757d;
+  text-align: center;
+}
+
+.population {
+  color: #94a3b8;
+  text-align: center;
+}
+.alignTableCenter {
+  overflow-x: scroll;
+}
+.highLIght:hover {
+  background-color: #161625;
+}
+@media screen and (min-width: 768px) {
+  .tableBorder {
+    width: 90%;
+  }
+  .alignTableCenter {
+    display: flex;
+    justify-content: center;
+  }
+}

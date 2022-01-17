@@ -1,7 +1,3 @@
-import {Route, Switch} from 'react-router-dom'
-import Home from './components/Home'
-import './App.css'
-
 const statesList = [
   {
     state_code: 'AN',
@@ -149,10 +145,39 @@ const statesList = [
   },
 ]
 
-const App = () => (
-  <Switch>
-    <Route exact path="/" component={Home} />
-  </Switch>
-)
+const ConvertObjectDataIntoList = data => {
+  const resultList = []
 
-export default App
+  const keyNames = Object.keys(data)
+
+  keyNames.forEach(keyName => {
+    if (data[keyName]) {
+      const {total} = data[keyName]
+      const confirmed = total.confirmed ? total.confirmed : 0
+      const deceased = total.deceased ? total.deceased : 0
+      const recovered = total.recovered ? total.recovered : 0
+      const tested = total.tested ? total.tested : 0
+      const population = data[keyName].meta.population
+        ? data[keyName].meta.population
+        : 0
+      if (
+        statesList.find(state => state.state_code === keyName) !== undefined
+      ) {
+        resultList.push({
+          stateCode: keyName,
+          name: statesList.find(state => state.state_code === keyName)
+            .state_name,
+          confirmed,
+          deceased,
+          recovered,
+          tested,
+          population,
+          active: confirmed - (deceased + recovered),
+        })
+      }
+    }
+  })
+  return resultList
+}
+
+export default ConvertObjectDataIntoList

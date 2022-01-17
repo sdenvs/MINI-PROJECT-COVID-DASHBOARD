@@ -1,0 +1,45 @@
+.covid19-header {
+  background: #1e1e30;
+  color: #ffffff;
+  min-height: 80px;
+}
+.header-logo {
+  font-family: 'Bree Serif';
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 24px;
+}
+.header-logo-1 {
+  color: #f8fafc;
+}
+.header-logo-2 {
+  color: #007bff;
+}
+.links,
+.links:link,
+.links:visited,
+.links:hover,
+.links:active {
+  text-decoration: none;
+}
+.hamberger-icon {
+  font-size: 30px;
+  color: #ffffff;
+}
+
+.navbar-nav {
+  flex: 1;
+  margin: auto !important;
+  display: flex;
+  justify-content: end;
+}
+@media screen and (min-width: 768px) {
+  .header-logo {
+    font-size: 20px;
+  }
+  .covid19-header {
+    padding-left: 90px;
+    padding-right: 90px;
+  }
+}

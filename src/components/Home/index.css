@@ -1,0 +1,66 @@
+.home-bg {
+  background-color: #161625;
+  height: 100vh;
+  overflow-y: scroll;
+}
+
+.Loader-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.success-bg {
+  padding: 20px;
+}
+.search-bar,
+.search-bar:hover,
+.search-bar:active,
+.search-bar:focus,
+.search-bar:visited {
+  background-color: #2f2f43;
+  outline: none;
+  border: none;
+  color: #64748b;
+  font-size: 16px;
+}
+.form-control:focus {
+  border: none;
+  box-shadow: none;
+}
+.search-icon {
+  color: #94a3b8;
+  padding-left: 15px;
+  font-size: 36px;
+}
+.search-container {
+  border-radius: 8px;
+  background-color: #2f2f43;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 48px;
+  width: 100%;
+}
+.totalCountList {
+  padding: 0px;
+  list-style-type: none;
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 25px;
+}
+.alignInputContainer {
+  display: flex;
+  justify-content: center;
+}
+
+@media screen and (min-width: 768px) {
+  .search-container {
+    height: 72px;
+    width: 75%;
+  }
+  .search-bar {
+    font-size: 16px;
+  }
+}
