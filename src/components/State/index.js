@@ -1,15 +1,10 @@
 import {Component} from 'react'
 import Loader from 'react-loader-spinner'
-
-import {BsSearch} from 'react-icons/bs'
-
-import Header from '../Header'
-import ConvertObjectDataIntoList from '../ConvertObjectDataIntoList'
+import ConverToDistrictList from '../ConverToDistrictList'
 import ExtractCountryCount from '../ExtractCountryCount'
+import Header from '../Header'
 import TotalCard from '../TotalCard'
-import RenderTable from '../TablesList'
-import Footer from '../Footer'
-import SuggetionItem from '../SuggetionItem'
+import DistrictDetails from '../DistrictDetails'
 import './index.css'
 
 const renderStatusList = {
@@ -18,7 +13,6 @@ const renderStatusList = {
   success: 'success',
   failed: 'failed',
 }
-
 const statesList = [
   {
     state_code: 'AN',
@@ -166,89 +160,142 @@ const statesList = [
   },
 ]
 
-class Home extends Component {
+const activeType = {
+  Recovered: 'Recovered',
+  Confirmed: 'Confirmed',
+  Active: 'Active',
+  Deceased: 'Deceased',
+}
+
+class State extends Component {
   state = {
     renderStatus: renderStatusList.progress,
-    homeData: [],
-    countryCount: [],
-    searchText: '',
+    stateData: [],
+    stateName: '',
+    totalCount: [],
+    active: activeType.Confirmed,
+    districtList: [],
   }
 
   componentDidMount() {
-    this.fetchHomeDetails()
+    this.fetchStateDetails()
   }
 
-  fetchHomeDetails = async () => {
+  fetchStateDetails = async () => {
+    const {match} = this.props
+    const {stateCode} = match.params
     this.setState({renderStatus: renderStatusList.progress})
     const url = 'https://apis.ccbp.in/covid19-state-wise-data'
     const response = await fetch(url)
     const data = await response.json()
+    console.log(data[stateCode])
+
     if (response.ok) {
-      const listData = ConvertObjectDataIntoList(data)
-      const countryCount = ExtractCountryCount(listData)
-      this.setState({homeData: listData, countryCount})
-      this.setState({renderStatus: renderStatusList.success})
+      const {total} = data[stateCode]
+      const totalList = [
+        {
+          ...total,
+          active: total.confirmed - (total.deceased + total.recovered),
+        },
+      ]
+      const totalCount = ExtractCountryCount(totalList)
+      const districtList = ConverToDistrictList(data[stateCode].districts)
+
+      this.setState({
+        renderStatus: renderStatusList.success,
+        stateData: data[stateCode],
+        totalCount,
+        stateName: statesList.find(state => state.state_code === stateCode)
+          .state_name,
+        districtList,
+      })
     }
   }
 
   renderLoadingView = () => (
     <div
-      testid="homeRouteLoader"
+      testid="stateDetailsLoader"
       className="products-loader-container Loader-container"
     >
       <Loader type="TailSpin" color="#007BFF" height="50" width="50" />
     </div>
   )
 
-  changeSearchText = event => {
-    this.setState({searchText: event.target.value})
-  }
-
-  renderSearchSuggetion = () => {
-    const {searchText} = this.state
-    const modStateList = statesList.filter(eachState =>
-      eachState.state_name.toLowerCase().includes(searchText.toLowerCase()),
-    )
-    console.log(modStateList)
-    return (
-      <ul className="ulList">
-        {modStateList.map(eachItem => (
-          <SuggetionItem details={eachItem} ket={eachItem.state_code} />
-        ))}
-      </ul>
-    )
+  changeActive = text => {
+    this.setState({active: text})
   }
 
   renderSuccessView = () => {
-    const {countryCount, homeData, searchText} = this.state
-    console.log(homeData)
+    const {stateData, stateName, totalCount, active, districtList} = this.state
+    console.log(stateName)
+    const lastUpdateDate = new Date(stateData.meta.last_updated)
+    const months = [
+      'January',
+      'February',
+      'March',
+      'April',
+      'May',
+      'June',
+      'July',
+      'August',
+      'September',
+      'October',
+      'November',
+      'December',
+    ]
+    const nth = function (d) {
+      if (d > 3 && d < 21) return `${d}th`
+      switch (d % 10) {
+        case 1:
+          return `${d}st`
+        case 2:
+          return `${d}nd`
+        case 3:
+          return `${d}rd`
+        default:
+          return `${d}th`
+      }
+    }
+    const [month, date, year] = [
+      months[lastUpdateDate.getMonth()],
+      nth(lastUpdateDate.getDate()),
+      lastUpdateDate.getFullYear(),
+    ]
+    console.log(month, date, year)
     return (
       <div className="success-bg">
-        <div className="alignInputContainer">
-          <div className="d-flex search-container">
-            <BsSearch className="search-icon" />
-            <input
-              onChange={this.changeSearchText}
-              placeholder="Enter the State"
-              type="search"
-              className="form-control search-bar"
-              value={searchText}
-            />
+        <div className="DateContainer">
+          <div>
+            <div className="stateName-bg">
+              <h1 className="stateName">{stateName}</h1>
+            </div>
+            <p className="dateString">{`Last update on ${month} ${date} ${year}.`}</p>
+          </div>
+          <div>
+            <p className="testedText">Tested</p>
+            <p className="testedCount">{stateData.total.tested}</p>
           </div>
         </div>
-        {searchText === '' ? (
-          <>
-            <ul className="totalCountList" testid="countryWideConfirmedCases">
-              {countryCount.map(eachItem => (
-                <TotalCard details={eachItem} key={eachItem.text} />
-              ))}
-            </ul>
-            <RenderTable details={homeData} />
-          </>
-        ) : (
-          this.renderSearchSuggetion()
-        )}
-        <Footer />
+        <ul className="totalCountList">
+          {totalCount.map(eachItem => (
+            <TotalCard
+              details={eachItem}
+              key={eachItem.text}
+              active={active}
+              changeActive={this.changeActive}
+            />
+          ))}
+        </ul>
+        <h1 className={`topDistricText ${active}`}>Top Districts</h1>
+        <ul className="DistrictDetailList">
+          {districtList.map(eachItem => (
+            <DistrictDetails
+              details={eachItem}
+              key={eachItem.Name}
+              active={active}
+            />
+          ))}
+        </ul>
       </div>
     )
   }
@@ -277,4 +324,4 @@ class Home extends Component {
   }
 }
 
-export default Home
+export default State

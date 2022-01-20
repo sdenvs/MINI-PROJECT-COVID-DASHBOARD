@@ -1,0 +1,64 @@
+.state-name {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 24px;
+  /* identical to box height, or 150% */
+
+  /* Light / blue-gray / 500 */
+
+  color: #64748b;
+}
+.state-code {
+  font-family: 'HK Grotesk';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 16px;
+  /* identical to box height, or 133% */
+
+  /* Light / yellow / 400 */
+
+  color: #facc15;
+}
+.go-icon {
+  font-size: 15px;
+  background-color: #facc15;
+  border: 1px #facc15 solid;
+  margin-left: 10px;
+}
+.suggetion-item p {
+  padding: 0;
+  margin: 0;
+}
+.suggetion-item {
+  padding: 12px;
+  border-bottom: 0.5px #94a3b8 solid;
+  width: 100%;
+}
+.LinkContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+@media screen and (min-width: 768px) {
+  .suggetion-item {
+    width: 75%;
+    padding: 16px;
+  }
+}
+
+.suggetion-item:hover {
+  border: 1px #94a3b8 solid;
+  background-color: #1f1f30;
+  text-decoration: none;
+}
+.suggetion-item div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(28, 212, 212, 0.16);
+  border-radius: 4px;
+  padding: 4px 6px;
+}

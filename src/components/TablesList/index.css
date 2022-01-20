@@ -22,6 +22,15 @@ th,
   color: #f8fafc;
   padding: 15px;
 }
+.colorName {
+  color: #f8fafc;
+}
+.colorName:hover,
+.colorName:focus {
+  color: #f8fafc;
+  text-decoration: none;
+}
+
 .tableBorder {
   border: 1px #475569 solid;
   border-radius: 10px;
@@ -80,5 +89,9 @@ th,
   .alignTableCenter {
     display: flex;
     justify-content: center;
+    overflow-x: scroll;
+  }
+  .alignTableCenter::-webkit-scrollbar {
+    display: none;
   }
 }

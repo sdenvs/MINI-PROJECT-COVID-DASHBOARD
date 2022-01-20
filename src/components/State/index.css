@@ -1,0 +1,78 @@
+.stateName {
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  /* identical to box height, or 150% */
+
+  /* Light / light-blue / 500 */
+
+  color: #0ea5e9;
+  width: 100%;
+}
+.stateName-bg {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 5.27059px 10.5412px;
+  background: rgba(2, 132, 199, 0.16);
+  border-radius: 16px;
+  min-width: 120px;
+  max-width: 312px;
+}
+
+.dateString {
+  font-family: 'Roboto';
+  font-size: 12px;
+  color: #cbd5e1;
+}
+.testedText {
+  padding: 0;
+  margin: 0;
+  font-family: 'Roboto';
+  font-size: 12px;
+  color: #94a3b8;
+  text-align: right;
+}
+.testedCount {
+  padding: 0;
+  margin: 0;
+  font-family: 'Roboto';
+  font-size: 16px;
+  color: #94a3b8;
+  text-align: right;
+}
+.DateContainer {
+  display: flex;
+  justify-content: space-between;
+}
+.topDistricText {
+  font-size: 24px;
+  text-align: start;
+}
+.DistrictDetailList {
+  padding: 0;
+  list-style-type: none;
+  display: flex;
+  flex-wrap: wrap;
+}
+@media screen and (min-width: 768px) {
+  .stateName {
+    font-size: 24px;
+  }
+  .dateString {
+    font-size: 18px;
+  }
+  .testedText {
+    font-size: 16px;
+  }
+  .testedCount {
+    font-size: 24px;
+  }
+  .stateName-bg {
+    padding: 10.5412px 21.0824px;
+    border-radius: 32px;
+  }
+}

@@ -13,7 +13,25 @@
 .Deceased {
   color: #6c757d;
 }
+.Confirmed-bg {
+  background: #331427;
+  border-radius: 8px;
+}
 
+.Active-bg {
+  background: #132240;
+  border-radius: 8px;
+}
+
+.Recovered-bg {
+  background: #182829;
+  border-radius: 8px;
+}
+
+.Deceased-bg {
+  background: #212230;
+  border-radius: 8px;
+}
 .totalCard {
   text-align: center;
   flex: 50%;

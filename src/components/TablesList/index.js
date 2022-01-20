@@ -1,5 +1,6 @@
 import {Component} from 'react'
 import {FcGenericSortingAsc, FcGenericSortingDesc} from 'react-icons/fc'
+import {Link} from 'react-router-dom'
 import './index.css'
 
 class RenderTable extends Component {
@@ -16,6 +17,7 @@ class RenderTable extends Component {
   render() {
     const {aaccending} = this.state
     const {details} = this.props
+    console.log(details)
     if (!aaccending) {
       details.reverse()
     }
@@ -52,7 +54,14 @@ class RenderTable extends Component {
 
             {details.map(eachItem => (
               <tr className="highLIght">
-                <td className="stateNameColumn">{eachItem.name}</td>
+                <td className="stateNameColumn">
+                  <Link
+                    to={`/state/${eachItem.stateCode}`}
+                    className="colorName"
+                  >
+                    {eachItem.name}
+                  </Link>
+                </td>
                 <td className="Confirmed">{eachItem.confirmed}</td>
                 <td className="Active">{eachItem.active}</td>
                 <td className="Recovered">{eachItem.recovered}</td>
