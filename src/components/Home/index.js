@@ -248,7 +248,6 @@ class Home extends Component {
         ) : (
           this.renderSearchSuggetion()
         )}
-        <Footer />
       </div>
     )
   }
@@ -272,6 +271,7 @@ class Home extends Component {
       <div className="home-bg">
         <Header />
         {this.renderDetails()}
+        <Footer />
       </div>
     )
   }

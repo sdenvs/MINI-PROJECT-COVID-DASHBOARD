@@ -5,6 +5,9 @@ table p {
   color: #f8fafc;
   padding: 0px;
   margin: 0px;
+  font-size: 16px;
+  margin-left: 15px;
+  font-weight: bold;
 }
 
 table button {

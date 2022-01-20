@@ -27,7 +27,7 @@ class RenderTable extends Component {
           <table>
             <tr className="bottomBorder">
               <th className="stateName">
-                <div className="d-flex">
+                <div className="d-flex align-items-center">
                   <p>States/UT</p>
                   <button
                     onClick={this.changeToAce}

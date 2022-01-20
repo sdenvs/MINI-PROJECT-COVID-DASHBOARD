@@ -1,3 +1,12 @@
+.state-bg {
+  width: 90%;
+  margin-top: 25px;
+}
+.centerContainer {
+  display: flex;
+  justify-content: center;
+}
+
 .stateName {
   margin: 0;
   padding: 0;
@@ -57,10 +66,11 @@
   list-style-type: none;
   display: flex;
   flex-wrap: wrap;
+  ]width: 100%;
 }
 @media screen and (min-width: 768px) {
   .stateName {
-    font-size: 24px;
+    font-size: 20px;
   }
   .dateString {
     font-size: 18px;

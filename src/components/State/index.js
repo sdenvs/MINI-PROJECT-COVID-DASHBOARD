@@ -1,10 +1,23 @@
 import {Component} from 'react'
 import Loader from 'react-loader-spinner'
+import {
+  LineChart,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  Line,
+  BarChart,
+  Bar,
+} from 'recharts'
 import ConverToDistrictList from '../ConverToDistrictList'
 import ExtractCountryCount from '../ExtractCountryCount'
 import Header from '../Header'
 import TotalCard from '../TotalCard'
 import DistrictDetails from '../DistrictDetails'
+import ConvertdateList from '../CovertdateList'
+
 import './index.css'
 
 const renderStatusList = {
@@ -167,9 +180,13 @@ const activeType = {
   Deceased: 'Deceased',
 }
 
+const activeTypeForChart = ['Recovered', 'Confirmed', 'Active', 'Deceased']
+
 class State extends Component {
   state = {
     renderStatus: renderStatusList.progress,
+    renderTimelineStatus: renderStatusList.progress,
+    dateData: [],
     stateData: [],
     stateName: '',
     totalCount: [],
@@ -179,6 +196,22 @@ class State extends Component {
 
   componentDidMount() {
     this.fetchStateDetails()
+    this.fetchStateTimelineDetails()
+  }
+
+  fetchStateTimelineDetails = async () => {
+    const {match} = this.props
+    const {stateCode} = match.params
+    this.setState({renderStatus: renderStatusList.progress})
+    const url = `https://apis.ccbp.in/covid19-timelines-data/${stateCode}`
+    const response = await fetch(url)
+    const data = await response.json()
+    if (response.ok) {
+      const stateData = data[stateCode]
+      const dateData = ConvertdateList(stateData.dates)
+
+      this.setState({renderTimelineStatus: renderStatusList.success, dateData})
+    }
   }
 
   fetchStateDetails = async () => {
@@ -188,7 +221,6 @@ class State extends Component {
     const url = 'https://apis.ccbp.in/covid19-state-wise-data'
     const response = await fetch(url)
     const data = await response.json()
-    console.log(data[stateCode])
 
     if (response.ok) {
       const {total} = data[stateCode]
@@ -215,6 +247,15 @@ class State extends Component {
   renderLoadingView = () => (
     <div
       testid="stateDetailsLoader"
+      className="products-loader-container Loader-container"
+    >
+      <Loader type="TailSpin" color="#007BFF" height="50" width="50" />
+    </div>
+  )
+
+  renderTimelineLoadingView = () => (
+    <div
+      testid="timelinesDataLoader"
       className="products-loader-container Loader-container"
     >
       <Loader type="TailSpin" color="#007BFF" height="50" width="50" />
@@ -263,40 +304,82 @@ class State extends Component {
     ]
     console.log(month, date, year)
     return (
-      <div className="success-bg">
-        <div className="DateContainer">
-          <div>
-            <div className="stateName-bg">
-              <h1 className="stateName">{stateName}</h1>
+      <div className="centerContainer">
+        <div className="state-bg">
+          <div className="DateContainer">
+            <div>
+              <div className="stateName-bg">
+                <h1 className="stateName">{stateName}</h1>
+              </div>
+              <p className="dateString">{`Last update on ${month} ${date} ${year}.`}</p>
             </div>
-            <p className="dateString">{`Last update on ${month} ${date} ${year}.`}</p>
+            <div>
+              <p className="testedText">Tested</p>
+              <p className="testedCount">{stateData.total.tested}</p>
+            </div>
           </div>
-          <div>
-            <p className="testedText">Tested</p>
-            <p className="testedCount">{stateData.total.tested}</p>
-          </div>
+          <ul
+            className="totalCountList"
+            testid="stateSpecificConfirmedCasesContainer"
+          >
+            {totalCount.map(eachItem => (
+              <TotalCard
+                details={eachItem}
+                key={eachItem.text}
+                active={active}
+                changeActive={this.changeActive}
+              />
+            ))}
+          </ul>
+          <h1 className={`topDistricText ${active}`}>Top Districts</h1>
+          <ul className="DistrictDetailList">
+            {districtList.map(eachItem => (
+              <DistrictDetails
+                details={eachItem}
+                key={eachItem.Name}
+                active={active}
+              />
+            ))}
+          </ul>
         </div>
-        <ul className="totalCountList">
-          {totalCount.map(eachItem => (
-            <TotalCard
-              details={eachItem}
-              key={eachItem.text}
-              active={active}
-              changeActive={this.changeActive}
-            />
-          ))}
-        </ul>
-        <h1 className={`topDistricText ${active}`}>Top Districts</h1>
-        <ul className="DistrictDetailList">
-          {districtList.map(eachItem => (
-            <DistrictDetails
-              details={eachItem}
-              key={eachItem.Name}
-              active={active}
-            />
-          ))}
-        </ul>
       </div>
+    )
+  }
+
+  renderTimelineSuccessView = () => {
+    const {dateData, active} = this.state
+    const data = dateData.slice(0, 10)
+    return (
+      <>
+        <BarChart width={1000} height={450} data={data}>
+          <CartesianGrid strokeDasharray="" />
+          <XAxis dataKey="date" />
+          <YAxis />
+          <Tooltip />
+          <Legend />
+          <Bar
+            dataKey={active}
+            fill="#8884d8"
+            className="bar"
+            label={{position: 'top', color: 'white'}}
+          />
+        </BarChart>
+        {activeTypeForChart.map(eachItem => (
+          <LineChart
+            width={730}
+            height={250}
+            data={dateData}
+            margin={{top: 5, right: 30, left: 20, bottom: 5}}
+          >
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="date" />
+            <YAxis />
+            <Tooltip />
+            <Legend />
+            <Line type="monotone" dataKey={eachItem} stroke="#8884d8" />
+          </LineChart>
+        ))}
+      </>
     )
   }
 
@@ -314,11 +397,26 @@ class State extends Component {
     }
   }
 
+  renderTimelineResult = () => {
+    const {renderTimelineStatus} = this.state
+    switch (renderTimelineStatus) {
+      case renderStatusList.success:
+        return this.renderTimelineSuccessView()
+      case renderStatusList.failed:
+        return null
+      case renderStatusList.progress:
+        return this.renderTimelineLoadingView()
+      default:
+        return null
+    }
+  }
+
   render() {
     return (
       <div className="home-bg">
         <Header />
         {this.renderDetails()}
+        {this.renderTimelineResult()}
       </div>
     )
   }
