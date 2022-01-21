@@ -42,8 +42,8 @@ const RenderLineChart = props => {
   }
   return (
     <div className={`lineChartStyle ${name}-bg`}>
-      <ResponsiveContainer width="100%" height="100%">
-        <LineChart data={dateData}>
+      <div width="100%" height="100%">
+        <LineChart width={800} height={500} data={dateData}>
           <XAxis
             interval={20}
             dataKey="date"
@@ -64,7 +64,7 @@ const RenderLineChart = props => {
           <Legend />
           <Line type="monotone" dataKey={name} stroke={colortype} />
         </LineChart>
-      </ResponsiveContainer>
+      </div>
     </div>
   )
 }

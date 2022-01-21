@@ -23,26 +23,31 @@ class RenderTable extends Component {
     }
     return (
       <div className="alignTableCenter">
-        <div className="tableBorder text-center">
+        <div
+          testid="stateWiseCovidDataTable"
+          className="tableBorder text-center"
+        >
           <table>
             <tr className="bottomBorder">
               <th className="stateName">
                 <div className="d-flex align-items-center">
                   <p>States/UT</p>
-                  <button
-                    onClick={this.changeToAce}
-                    type="button"
-                    testid="ascendingSort"
-                  >
-                    <FcGenericSortingAsc className="tableIcon" />
-                  </button>
-                  <button
-                    onClick={this.changeToDec}
-                    type="button"
-                    testid="descendingSort"
-                  >
-                    <FcGenericSortingDesc className="tableIcon" />
-                  </button>
+                  <div testid="stateWiseCovidDataTable">
+                    <button
+                      onClick={this.changeToAce}
+                      type="button"
+                      testid="ascendingSort"
+                    >
+                      <FcGenericSortingAsc className="tableIcon" />
+                    </button>
+                    <button
+                      onClick={this.changeToDec}
+                      type="button"
+                      testid="descendingSort"
+                    >
+                      <FcGenericSortingDesc className="tableIcon" />
+                    </button>
+                  </div>
                 </div>
               </th>
               <th className="count">Confirmed</th>

@@ -2,9 +2,9 @@ import {Component} from 'react'
 import Loader from 'react-loader-spinner'
 
 import ConverToDistrictList from '../ConverToDistrictList'
-import ExtractCountryCount from '../ExtractCountryCount'
+import ExtractStateCount from '../ExtractStateCount'
 import Header from '../Header'
-import TotalCard from '../TotalCard'
+import TotalCardState from '../TotalCardState'
 import DistrictDetails from '../DistrictDetails'
 import ConvertdateList from '../CovertdateList'
 import RenderBarChart from '../BarChart/index'
@@ -232,7 +232,7 @@ class States extends Component {
           active: total.confirmed - (total.deceased + total.recovered),
         },
       ]
-      const totalCount = ExtractCountryCount(totalList)
+      const totalCount = ExtractStateCount(totalList)
       const districtList = ConverToDistrictList(data[stateCode].districts)
       const sortable = []
       districtList.forEach(eachItem => {
@@ -351,7 +351,7 @@ class States extends Component {
             testid="stateSpecificConfirmedCasesContainer"
           >
             {totalCount.map(eachItem => (
-              <TotalCard
+              <TotalCardState
                 details={eachItem}
                 key={eachItem.text}
                 active={active}
@@ -360,7 +360,7 @@ class States extends Component {
             ))}
           </ul>
           <h1 className={`topDistricText ${active}`}>Top Districts</h1>
-          <ul className="DistrictDetailList">
+          <ul testid="topDistrictsUnorderedList" className="DistrictDetailList">
             {sortable.length === 0
               ? ''
               : sortable.map(eachItem => (
@@ -384,14 +384,15 @@ class States extends Component {
         <div className="state-bg">
           <RenderBarChart data={data} active={active} />
           <h1 className="daily-spread-text">Daily Spread Trends</h1>
-
-          {activeTypeForChart.map(eachItem => (
-            <RenderLineChart
-              dateData={dateData}
-              key={eachItem}
-              name={eachItem}
-            />
-          ))}
+          <div testid="lineChartsContainer">
+            {activeTypeForChart.map(eachItem => (
+              <RenderLineChart
+                dateData={dateData}
+                key={eachItem}
+                name={eachItem}
+              />
+            ))}
+          </div>
         </div>
       </div>
     )

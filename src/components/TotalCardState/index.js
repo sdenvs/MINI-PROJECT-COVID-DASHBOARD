@@ -7,15 +7,22 @@ const activeType = {
   Deceased: 'Deceased',
 }
 
-const TotalCard = props => {
-  const {details} = props
+const TotalCardState = props => {
+  const {details, active, changeActive} = props
+
+  const changeActiveFun = () => {
+    changeActive(details.text)
+  }
+
+  const bgStyle = active === details.text ? `${active}-bg` : ''
 
   return (
     <div
       role="tab"
       tabIndex={0}
       testid={details.testid}
-      className={`${details.text} totalCard`}
+      onClick={changeActiveFun}
+      className={`${details.text} totalCard ${bgStyle}`}
     >
       <div>
         <h1>{details.text}</h1>
@@ -26,4 +33,4 @@ const TotalCard = props => {
   )
 }
 
-export default TotalCard
+export default TotalCardState

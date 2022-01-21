@@ -211,7 +211,7 @@ class Home extends Component {
     )
     console.log(modStateList)
     return (
-      <ul className="ulList">
+      <ul testid="searchResultsUnorderedList" className="ulList">
         {modStateList.map(eachItem => (
           <SuggetionItem details={eachItem} ket={eachItem.state_code} />
         ))}

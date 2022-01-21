@@ -24,8 +24,7 @@
 }
 .go-icon {
   font-size: 15px;
-  background-color: #facc15;
-  border: 1px #facc15 solid;
+  color: #facc15;
   margin-left: 10px;
 }
 .suggetion-item p {
