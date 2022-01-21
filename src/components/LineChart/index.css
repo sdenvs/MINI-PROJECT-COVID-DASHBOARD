@@ -1,0 +1,22 @@
+.lineChartStyle {
+  width: 100%;
+  height: 300px;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+.recharts-cartesian-axis-tick {
+  font-size: 10px;
+  font-family: 'Roboto';
+}
+@media screen and (min-width: 768px) {
+  .lineChartStyle {
+    height: 328px;
+  }
+  .recharts-cartesian-axis-tick {
+    font-size: 16px;
+  }
+}

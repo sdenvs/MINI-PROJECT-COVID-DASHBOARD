@@ -1,11 +1,11 @@
 import './index.css'
 
 const DistrictDetails = props => {
-  const {details, active} = props
+  const {details} = props
   return (
     <div className=" districtContainer ">
-      <p className="districCount">{details[active]}</p>
-      <p className="dustrictName">{details.Name}</p>
+      <p className="districCount">{details[1]}</p>
+      <p className="dustrictName">{details[0]}</p>
     </div>
   )
 }

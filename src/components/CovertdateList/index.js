@@ -1,5 +1,6 @@
 const ConvertdateList = dateObj => {
   const dateList = Object.keys(dateObj)
+
   const dateData = []
   dateList.forEach(eachItem => {
     const {total} = dateObj[eachItem]
@@ -8,6 +9,7 @@ const ConvertdateList = dateObj => {
       Recovered: total.recovered,
       Confirmed: total.confirmed,
       Deceased: total.deceased,
+      Tested: total.tested,
       Active: total.confirmed - (total.deceased + total.recovered),
     }
     dateData.push(obj)

@@ -1,0 +1,16 @@
+.question {
+  font-size: 14px;
+  color: #94a3b8;
+}
+.ans {
+  font-size: 14px;
+  color: #007bff;
+}
+@media screen and (min-width: 768px) {
+  .question {
+    font-size: 16px;
+  }
+  .ans {
+    font-size: 16px;
+  }
+}

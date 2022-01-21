@@ -1,23 +1,15 @@
 import {Component} from 'react'
 import Loader from 'react-loader-spinner'
-import {
-  LineChart,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  Line,
-  BarChart,
-  Bar,
-} from 'recharts'
+
 import ConverToDistrictList from '../ConverToDistrictList'
 import ExtractCountryCount from '../ExtractCountryCount'
 import Header from '../Header'
 import TotalCard from '../TotalCard'
 import DistrictDetails from '../DistrictDetails'
 import ConvertdateList from '../CovertdateList'
-
+import RenderBarChart from '../BarChart/index'
+import RenderLineChart from '../LineChart/index'
+import Footer from '../Footer'
 import './index.css'
 
 const renderStatusList = {
@@ -174,15 +166,22 @@ const statesList = [
 ]
 
 const activeType = {
-  Recovered: 'Recovered',
   Confirmed: 'Confirmed',
   Active: 'Active',
+  Recovered: 'Recovered',
   Deceased: 'Deceased',
+  Tested: 'Tested',
 }
 
-const activeTypeForChart = ['Recovered', 'Confirmed', 'Active', 'Deceased']
+const activeTypeForChart = [
+  'Confirmed',
+  'Active',
+  'Recovered',
+  'Deceased',
+  'Tested',
+]
 
-class State extends Component {
+class States extends Component {
   state = {
     renderStatus: renderStatusList.progress,
     renderTimelineStatus: renderStatusList.progress,
@@ -192,6 +191,8 @@ class State extends Component {
     totalCount: [],
     active: activeType.Confirmed,
     districtList: [],
+    sortable: [],
+    sortedDistrictList: [],
   }
 
   componentDidMount() {
@@ -215,6 +216,7 @@ class State extends Component {
   }
 
   fetchStateDetails = async () => {
+    const {active} = this.state
     const {match} = this.props
     const {stateCode} = match.params
     this.setState({renderStatus: renderStatusList.progress})
@@ -232,6 +234,11 @@ class State extends Component {
       ]
       const totalCount = ExtractCountryCount(totalList)
       const districtList = ConverToDistrictList(data[stateCode].districts)
+      const sortable = []
+      districtList.forEach(eachItem => {
+        sortable.push([eachItem.Name, eachItem[active]])
+      })
+      sortable.sort((a, b) => b[1] - a[1])
 
       this.setState({
         renderStatus: renderStatusList.success,
@@ -240,7 +247,21 @@ class State extends Component {
         stateName: statesList.find(state => state.state_code === stateCode)
           .state_name,
         districtList,
+        sortable,
       })
+    }
+  }
+
+  sequenceList = () => {
+    const {districtList, active} = this.state
+    if (districtList.length > 0) {
+      const sortable = []
+      districtList.forEach(eachItem => {
+        sortable.push([eachItem.Name, eachItem[active]])
+      })
+      sortable.sort((a, b) => b[1] - a[1])
+
+      this.setState({sortable})
     }
   }
 
@@ -263,12 +284,19 @@ class State extends Component {
   )
 
   changeActive = text => {
-    this.setState({active: text})
+    this.setState({active: text}, this.sequenceList)
   }
 
   renderSuccessView = () => {
-    const {stateData, stateName, totalCount, active, districtList} = this.state
-    console.log(stateName)
+    const {
+      stateData,
+      stateName,
+      totalCount,
+      active,
+      sortedDistrictList,
+      sortable,
+    } = this.state
+    console.log(sortedDistrictList)
     const lastUpdateDate = new Date(stateData.meta.last_updated)
     const months = [
       'January',
@@ -284,7 +312,7 @@ class State extends Component {
       'November',
       'December',
     ]
-    const nth = function (d) {
+    const nth = d => {
       if (d > 3 && d < 21) return `${d}th`
       switch (d % 10) {
         case 1:
@@ -302,7 +330,7 @@ class State extends Component {
       nth(lastUpdateDate.getDate()),
       lastUpdateDate.getFullYear(),
     ]
-    console.log(month, date, year)
+
     return (
       <div className="centerContainer">
         <div className="state-bg">
@@ -333,13 +361,15 @@ class State extends Component {
           </ul>
           <h1 className={`topDistricText ${active}`}>Top Districts</h1>
           <ul className="DistrictDetailList">
-            {districtList.map(eachItem => (
-              <DistrictDetails
-                details={eachItem}
-                key={eachItem.Name}
-                active={active}
-              />
-            ))}
+            {sortable.length === 0
+              ? ''
+              : sortable.map(eachItem => (
+                  <DistrictDetails
+                    details={eachItem}
+                    key={eachItem[0]}
+                    active={active}
+                  />
+                ))}
           </ul>
         </div>
       </div>
@@ -350,36 +380,20 @@ class State extends Component {
     const {dateData, active} = this.state
     const data = dateData.slice(0, 10)
     return (
-      <>
-        <BarChart width={1000} height={450} data={data}>
-          <CartesianGrid strokeDasharray="" />
-          <XAxis dataKey="date" />
-          <YAxis />
-          <Tooltip />
-          <Legend />
-          <Bar
-            dataKey={active}
-            fill="#8884d8"
-            className="bar"
-            label={{position: 'top', color: 'white'}}
-          />
-        </BarChart>
-        {activeTypeForChart.map(eachItem => (
-          <LineChart
-            width={730}
-            height={250}
-            data={dateData}
-            margin={{top: 5, right: 30, left: 20, bottom: 5}}
-          >
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="date" />
-            <YAxis />
-            <Tooltip />
-            <Legend />
-            <Line type="monotone" dataKey={eachItem} stroke="#8884d8" />
-          </LineChart>
-        ))}
-      </>
+      <div className="centerContainer">
+        <div className="state-bg">
+          <RenderBarChart data={data} active={active} />
+          <h1 className="daily-spread-text">Daily Spread Trends</h1>
+
+          {activeTypeForChart.map(eachItem => (
+            <RenderLineChart
+              dateData={dateData}
+              key={eachItem}
+              name={eachItem}
+            />
+          ))}
+        </div>
+      </div>
     )
   }
 
@@ -417,9 +431,10 @@ class State extends Component {
         <Header />
         {this.renderDetails()}
         {this.renderTimelineResult()}
+        <Footer />
       </div>
     )
   }
 }
 
-export default State
+export default States
