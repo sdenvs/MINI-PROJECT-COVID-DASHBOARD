@@ -25,7 +25,7 @@ const TotalCardState = props => {
       className={`${details.text} totalCard ${bgStyle}`}
     >
       <div>
-        <h1>{details.text}</h1>
+        <p>{details.text}</p>
         <img src={details.imgUrl} alt={details.altText} />
       </div>
       <p>{details.total}</p>

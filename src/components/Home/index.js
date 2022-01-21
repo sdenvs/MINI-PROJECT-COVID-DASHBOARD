@@ -243,7 +243,7 @@ class Home extends Component {
                 <TotalCard details={eachItem} key={eachItem.text} />
               ))}
             </ul>
-            <RenderTable details={homeData} />
+            <RenderTable details={homeData} key="table" />
           </>
         ) : (
           this.renderSearchSuggetion()

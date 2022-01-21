@@ -346,10 +346,7 @@ class States extends Component {
               <p className="testedCount">{stateData.total.tested}</p>
             </div>
           </div>
-          <ul
-            className="totalCountList"
-            testid="stateSpecificConfirmedCasesContainer"
-          >
+          <ul className="totalCountList">
             {totalCount.map(eachItem => (
               <TotalCardState
                 details={eachItem}
