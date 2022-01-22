@@ -380,8 +380,9 @@ class States extends Component {
       <div className="centerContainer">
         <div className="state-bg">
           <RenderBarChart data={data} active={active} />
-          <h1 className="daily-spread-text">Daily Spread Trends</h1>
+
           <div testid="lineChartsContainer">
+            <h1 className="daily-spread-text">Daily Spread Trends</h1>
             {activeTypeForChart.map(eachItem => (
               <RenderLineChart
                 dateData={dateData}

@@ -17,10 +17,9 @@ const TotalCard = props => {
       testid={details.testid}
       className={`${details.text} totalCard`}
     >
-      <div>
-        <p>{details.text}</p>
-        <img src={details.imgUrl} alt={details.altText} />
-      </div>
+      <p>{details.text}</p>
+      <img src={details.imgUrl} alt={details.altText} />
+
       <p>{details.total}</p>
     </div>
   )

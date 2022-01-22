@@ -15,10 +15,9 @@ const NotFound = props => {
         />
         <h1 className="AboutTitle mb-5">PAGE NOT FOUND</h1>
         <p className="covidText mb-4 text-center">
-          we’re sorry, the page you requested could not be found
+          we’re sorry, the page you requested could not be found Please go back
+          to the homepage
         </p>
-
-        <p>Please go back to the homepage</p>
         <button onClick={goToHome} className="btn btn-primary">
           Home
         </button>
