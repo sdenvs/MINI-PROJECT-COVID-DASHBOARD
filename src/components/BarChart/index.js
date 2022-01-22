@@ -39,8 +39,8 @@ const RenderBarChart = props => {
   }
   return (
     <div className={`lineChartStyle ${active}-bg`}>
-      <ResponsiveContainer width="100%" height="100%">
-        <BarChart width={800} height={500} data={data} barSize={25}>
+      <ResponsiveContainer width="100%" height="80%">
+        <BarChart data={data} barSize={25}>
           <XAxis
             dataKey="date"
             stroke={`${colortype}`}
@@ -54,11 +54,15 @@ const RenderBarChart = props => {
           <Tooltip />
           <Legend />
           <Bar
-            valueFormatter={DataFormater}
             dataKey={active}
             fill={`${colortype}`}
             className="bar"
-            label={{position: 'top', fill: '#fff', stroke: colortype}}
+            label={{
+              position: 'center',
+              angle: -90,
+              fill: '#fff',
+              stroke: '#fff',
+            }}
             radius={[8, 8, 0, 0]}
           />
         </BarChart>

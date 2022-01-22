@@ -13,9 +13,6 @@
   font-family: 'Roboto';
 }
 @media screen and (min-width: 768px) {
-  .lineChartStyle {
-    height: 328px;
-  }
   .recharts-cartesian-axis-tick {
     font-size: 16px;
   }
