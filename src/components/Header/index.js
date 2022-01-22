@@ -21,7 +21,7 @@ class Header extends Component {
     const {activeTab} = this.state
     return (
       <nav className="navbar navbar-expand-lg navbar-dark covid19-header">
-        <li>
+        <div>
           <Link
             onClick={this.changeActiveTabHome}
             to="/"
@@ -30,7 +30,7 @@ class Header extends Component {
             <span className="header-logo-1">COVID19</span>
             <span className="header-logo-2">INDIA</span>
           </Link>
-        </li>
+        </div>
         <button
           className="navbar-toggler border-0 bg-transparent"
           type="button"
