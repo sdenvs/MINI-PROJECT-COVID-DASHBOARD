@@ -1,60 +1,57 @@
-table {
+.all-states-table {
   width: 100%;
+  box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.16);
+  align-self: flex-start;
 }
-table p {
-  color: #f8fafc;
-  padding: 0px;
-  margin: 0px;
-  font-size: 16px;
-  margin-left: 15px;
-  font-weight: bold;
+.overflow-container {
+  background: #1e1e30;
+  border: 1px solid #475569;
+  border-radius: 12px;
 }
-
-table button {
+.table-header {
+  border-bottom: 1px solid #475569;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  height: 72px;
+}
+.state-name-heading {
+  width: 22%;
+  padding: 0px 32px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+.order {
   background-color: transparent;
-  border: 0;
+  border: none;
+  outline: none;
+  font-size: 20px;
 }
-
-.tableIcon {
-  color: #28a745;
-  margin-left: 10px;
+.order-icon {
+  color: #94a3b8;
+  background-color: transparent;
 }
-
-th,
-.stateNameColumn {
+.other-tables-bar {
+  width: 15.6%;
+}
+.table-header-title {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 24px;
   color: #f8fafc;
-  padding: 15px;
 }
-.colorName {
-  color: #f8fafc;
+.state-wise-data-container {
+  display: flex;
+  flex-direction: column;
 }
-.colorName:hover,
-.colorName:focus {
-  color: #f8fafc;
-  text-decoration: none;
+.other-tables {
+  padding: 0;
 }
-
-.tableBorder {
-  border: 1px #475569 solid;
-  border-radius: 10px;
-  width: fit-content;
-  background-color: #1e1e30;
-}
-.stateName {
-  width: 30%;
-  text-align: start;
-}
-.stateNameColumn {
-  text-align: start;
-}
-.count {
-  width: 14%;
-  text-align: center;
-}
-.bottomBorder {
-  border-bottom: 1px #475569 solid;
-}
-
 .Confirmed {
   color: #ff073a;
   text-align: center;
@@ -79,22 +76,12 @@ th,
   color: #94a3b8;
   text-align: center;
 }
-.alignTableCenter {
-  overflow-x: scroll;
-}
-.highLIght:hover {
-  background-color: #161625;
-}
-@media screen and (min-width: 768px) {
-  .tableBorder {
-    width: 90%;
-  }
-  .alignTableCenter {
-    display: flex;
-    justify-content: center;
+@media (max-width: 767px) {
+  .all-states-table {
+    width: 100%;
     overflow-x: scroll;
   }
-  .alignTableCenter::-webkit-scrollbar {
-    display: none;
+  .overflow-container {
+    width: 800px;
   }
 }
