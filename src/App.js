@@ -1,4 +1,4 @@
-import {Route, Switch} from 'react-router-dom'
+import {Route, Switch, Redirect} from 'react-router-dom'
 import Home from './components/Home'
 import States from './components/State'
 import About from './components/About'
@@ -11,7 +11,7 @@ const App = () => (
     <Route exact path="/state/:stateCode" component={States} />
     <Route exact path="/about" component={About} />
     <Route exact path="/bad-path" component={NotFound} />
-    <Route component={NotFound} />
+    <Redirect to="/bad-path" />
   </Switch>
 )
 

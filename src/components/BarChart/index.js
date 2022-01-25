@@ -1,11 +1,7 @@
 import {
-  LineChart,
   XAxis,
-  YAxis,
-  CartesianGrid,
   Tooltip,
   Legend,
-  Line,
   BarChart,
   Bar,
   ResponsiveContainer,
@@ -25,18 +21,7 @@ const RenderBarChart = props => {
   } else if (active === 'Deceased') {
     colortype = '#474C57'
   }
-  const DataFormater = number => {
-    switch (true) {
-      case number > 1000000000:
-        return `${(number / 1000000000).toString()}B`
-      case number > 1000000:
-        return `${(number / 1000000).toString()}M`
-      case number > 1000:
-        return `${(number / 1000).toString()}K`
-      default:
-        return number.toString()
-    }
-  }
+
   return (
     <div className={`lineChartStyle ${active}-bg`}>
       <ResponsiveContainer width="100%" height="80%">

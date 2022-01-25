@@ -1,12 +1,5 @@
 import './index.css'
 
-const activeType = {
-  Recovered: 'Recovered',
-  Confirmed: 'Confirmed',
-  Active: 'Active',
-  Deceased: 'Deceased',
-}
-
 const TotalCardState = props => {
   const {details, active, changeActive} = props
 

@@ -17,21 +17,21 @@ const ExtractCountryCount = data => {
       imgUrl:
         'https://res.cloudinary.com/nani57/image/upload/v1642313511/Covid-19%20dashboard/check-mark_1confirmed_w6adnp.png',
       altText: 'country wide confirmed cases pic',
-      testid: 'countryWideConfirmedCases',
+      testId: 'countryWideConfirmedCases',
     },
     {
       text: 'Active',
       altText: 'country wide active cases pic',
-      testid: 'countryWideActiveCases',
-      total: active,
+      testId: 'countryWideActiveCases',
       imgUrl:
         'https://res.cloudinary.com/nani57/image/upload/v1642313511/Covid-19%20dashboard/protection_2active_jf7dby.png',
+      total: active,
     },
     {
       text: 'Recovered',
       total: recovered,
       altText: 'country wide recovered cases pic',
-      testid: 'countryWideRecoveredCases',
+      testId: 'countryWideRecoveredCases',
       imgUrl:
         'https://res.cloudinary.com/nani57/image/upload/v1642313511/Covid-19%20dashboard/recovered_1recovered_jogvut.png',
     },
@@ -39,7 +39,7 @@ const ExtractCountryCount = data => {
       text: 'Deceased',
       total: deceased,
       altText: 'country wide deceased cases pic',
-      testid: 'countryWideDeceasedCases',
+      testId: 'countryWideDeceasedCases',
       imgUrl:
         'https://res.cloudinary.com/nani57/image/upload/v1642313511/Covid-19%20dashboard/breathing_1deceased_xvzewn.png',
     },

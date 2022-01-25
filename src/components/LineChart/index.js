@@ -2,12 +2,9 @@ import {
   LineChart,
   XAxis,
   YAxis,
-  CartesianGrid,
   Tooltip,
   Legend,
   Line,
-  BarChart,
-  Bar,
   ResponsiveContainer,
 } from 'recharts'
 

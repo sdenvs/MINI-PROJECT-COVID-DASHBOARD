@@ -18,7 +18,7 @@ const NotFound = props => {
           we’re sorry, the page you requested could not be found Please go back
           to the homepage
         </p>
-        <button onClick={goToHome} className="btn btn-primary">
+        <button type="button" onClick={goToHome} className="btn btn-primary">
           Home
         </button>
       </div>
